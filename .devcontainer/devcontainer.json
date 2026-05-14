@@ -1,7 +1,9 @@
 {
     "name" : "the-yapping",
     "build": {
-        "dockerfile": "../Dockerfile"
+        "dockerfile": "../Dockerfile",
+        "context": ".."
+        
     },
 
     // "features": {},
