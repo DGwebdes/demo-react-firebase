@@ -1,5 +1,5 @@
 {
-    "name" : "fullstackopen",
+    "name" : "the-yapping",
     "build": {
         "dockerfile": "../Dockerfile"
     },
