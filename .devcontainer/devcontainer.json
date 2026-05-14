@@ -1,34 +1,17 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/debian
 {
-	"name": "Debian",
-	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/base:trixie",
+    "name" : "fullstackopen",
+    "build": {
+        "dockerfile": "../Dockerfile"
+    },
 
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
+    // "features": {},
 
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [5173],
+    "customizations": {
+        "vscode": {
+            "extensions": ["esbenp.prettier-vscode", "vscode-icons-team.vscode-icons", "bradlc.vscode-tailwindcss", "dbaeumer.vscode-eslint", "dracula-theme.theme-dracula", "formulahendry.auto-rename-tag", "oderwat.indent-rainbow", "aaron-bond.better-comments", "humao.rest-client", "naumovs.color-highlight", "formulahendry.auto-close-tag", "dsznajder.es7-react-js-snippets"],
+            "settings": {"workbench.activityBar.location": "top"}
+        }
+    },
 
-	// Configure tool-specific properties.
-	// "customizations": {},
-	"mounts": [
-		"source=node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
-	],
-	"features": {
-		"ghcr.io/devcontainers/features/node:2": {
-			"nodeGypDependencies": true,
-			"version": "lts",
-			"npmVersion": "lts",
-			"pnpmVersion": "latest",
-			"nvmVersion": "latest"
-		}
-	},
-	
-	"postCreateCommand": "sudo chown -R $(whoami) ${containerWorkspaceFolder}/node_modules"
-
-
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+    "forwardPorts": [3000]
 }
