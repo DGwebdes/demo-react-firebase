@@ -28,7 +28,7 @@ function Posts({ posts }) {
                             </i>
                         </p>
                     </div>
-                    <div className="md:min-w-[100px] max-w-[65px] h-fit p-2">
+                    <div className="md:min-w-25 max-w-16.25 h-fit p-2">
                         <img
                             src={post.imgURL}
                             style={{

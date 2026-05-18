@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../config/firebaseConfig";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/useAuth";
 import Layout from "../pages/Layout";
 
 function CreatePost({ setPosts }) {

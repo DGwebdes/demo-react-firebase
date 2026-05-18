@@ -7,7 +7,7 @@ const Home = () => {
         <Layout>
             <div className="h-[75dvh] md:h-[80dvh] flex justify-center items-center flex-col">
                 <h1 className="text-3xl font-bold mb-4">
-                    This is a Blog, apparently
+                    This is a Chatroom, apparently
                 </h1>
                 <PixelCard variant="pink">
                     <img src="/potion.png" className="absolute w-50" />
