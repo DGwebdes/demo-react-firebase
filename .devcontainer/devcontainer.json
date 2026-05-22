@@ -1,17 +1,32 @@
 {
-    "name" : "the-yapping",
+    "name": "the-yapping",
     "build": {
-        "dockerfile": "Dockerfile"        
+        "dockerfile": "Dockerfile"
     },
-
     // "features": {},
-
     "customizations": {
         "vscode": {
-            "extensions": ["esbenp.prettier-vscode", "vscode-icons-team.vscode-icons", "bradlc.vscode-tailwindcss", "dbaeumer.vscode-eslint", "dracula-theme.theme-dracula", "formulahendry.auto-rename-tag", "oderwat.indent-rainbow", "aaron-bond.better-comments", "humao.rest-client", "naumovs.color-highlight", "formulahendry.auto-close-tag", "dsznajder.es7-react-js-snippets"],
-            "settings": {"workbench.activityBar.location": "top"}
+            "extensions": [
+                "esbenp.prettier-vscode",
+                "vscode-icons-team.vscode-icons",
+                "bradlc.vscode-tailwindcss",
+                "dbaeumer.vscode-eslint",
+                "dracula-theme.theme-dracula",
+                "formulahendry.auto-rename-tag",
+                "oderwat.indent-rainbow",
+                "aaron-bond.better-comments",
+                "humao.rest-client",
+                "naumovs.color-highlight",
+                "formulahendry.auto-close-tag",
+                "dsznajder.es7-react-js-snippets"
+            ],
+            "settings": {
+                "workbench.activityBar.location": "top",
+                "editor.formatOnSave": true
+            }
         }
     },
-
-    "forwardPorts": [3000]
+    "forwardPorts": [
+        3000
+    ]
 }
