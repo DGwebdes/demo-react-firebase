@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "./config/firebaseConfig"; // Import Firebase Firestore
 import Posts from "./pages/Posts";
 import PostDetail from "./components/PostDetail";
 import CreatePost from "./components/CreatePost";
@@ -12,27 +10,7 @@ import Home from "./pages/Home";
 function App() {
   const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const querySnapshot = await getDocs(collection(db, "posts"));
-      setPosts(
-        querySnapshot.docs.map((doc) => {
-          const data = doc.data();
-          return {
-            id: doc.id,
-            title: data.title,
-            content: data.content,
-            date: data.date ? data.date : "Unknown Date",
-            author: data.author ? data.author : "Unknown Author",
-            imgURL: data.imgURL ? data.imgURL : "/potion.png",
-            userId: data.userId,
-          };
-        }),
-      );
-    };
-
-    fetchPosts();
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     // <AuthProvider>
