@@ -11,8 +11,9 @@ export const DisplayMessage = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setMessages((prev) => [...prev, createMessage()]);
-    }, 1000);
+    }, 360000);
 
+    console.log("empty or not");
     return () => clearInterval(interval);
   }, []);
 
@@ -24,33 +25,26 @@ export const DisplayMessage = () => {
   }
 
   return (
-    <div className="h-full flex-1">
+    <div className="h-full flex-1 relative">
       <Virtuoso
         ref={virtuosoRef}
         style={{ height: "100%" }}
         data={messages}
-        followOutput={atBottom ? "smooth" : false}
+        alignToBottom
+        followOutput={atBottom ? "auto" : false}
         atBottomStateChange={setAtBottom}
         itemContent={(index, msg) => <MessageRow {...msg} />}
       />
       {!atBottom && (
         <button
           onClick={scrollToBottom}
-          style={{
-            position: "absolute",
-            bottom: 12,
-            left: "50%",
-            transform: "translateX(-50%)",
-            background: "#bf94ff",
-            color: "#0e0e10",
-            border: "none",
-            borderRadius: 12,
-            padding: "4px 14px",
-            fontSize: 12,
-            fontWeight: 700,
-            cursor: "pointer",
-            whiteSpace: "nowrap",
-          }}
+          className="absolute bottom-3 left-1/2 -translate-x-1/2
+      px-4 py-1.5 text-xs tracking-widest uppercase font-mono
+      border border-purple/60 text-purple
+      bg-bg/90 backdrop-blur-sm rounded-sm
+      shadow-[0_0_12px_var(--glow-purple)]
+      hover:shadow-[0_0_20px_var(--accent-purple)]
+      hover:border-purple transition-all duration-200 whitespace-nowrap"
         >
           ↓ new messages
         </button>

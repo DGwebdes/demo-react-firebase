@@ -1,3 +1,42 @@
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+    :root {
+        --bg: #f5fff5;
+        --bg-surface: #e8f5e8;
+        --border: #00cc33;
+        --accent-green: #00cc33;
+        --accent-purple: #9900cc;
+        --text-primary: #0a2e0a;
+        --text-dim: #2d6e2d;
+        --text-muted: #5a9e5a;
+        --glow-green: rgba(0, 204, 51, 0.3);
+        --glow-purple: rgba(153, 0, 204, 0.3);
+    }
+
+    :root.dark {
+        --bg: #050f05;
+        --bg-surface: #0a1a0a;
+        --border: #00ff41;
+        --accent-green: #00ff41;
+        --accent-purple: #bf00ff;
+        --text-primary: #00ff41;
+        --text-dim: #00ff41cc;
+        --text-muted: #00ff4166;
+        --glow-green: rgba(0, 255, 65, 0.25);
+        --glow-purple: rgba(191, 0, 255, 0.25);
+    }
+}
+
+@theme {
+    --color-bg: var(--bg);
+    --color-surface: var(--bg-surface);
+    --color-border-neon: var(--border);
+    --color-green: var(--accent-green);
+    --color-purple: var(--accent-purple);
+    --color-primary: var(--text-primary);
+    --color-dim: var(--text-dim);
+    --color-muted: var(--text-muted);
+}

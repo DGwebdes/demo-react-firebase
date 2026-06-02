@@ -1,57 +1,80 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/useAuth";
+// import React, { useState } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { useAuth } from "../context/useAuth";
 import Layout from "./Layout";
 
 const Login = () => {
-    const navigate = useNavigate();
-    const { GoogleSignIn } = useAuth();
-    const [error, setError] = useState("");
+  // const navigate = useNavigate();
+  // const { GoogleSignIn } = useAuth();
+  // const [error, setError] = useState("");
 
-    const handleGoogleSignIn = async () => {
-        try {
-            await GoogleSignIn();
-            navigate("/");
-        } catch (err) {
-            setError("Cannot login with google", err.message);
-        }
-    };
+  // const handleGoogleSignIn = async () => {
+  //   try {
+  //     await GoogleSignIn();
+  //     navigate("/");
+  //   } catch (err) {
+  //     setError("Cannot login with google", err.message);
+  //   }
+  // };
 
-    return (
-        <Layout>
-            <div className="p-6 max-w-sm mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg inset-0">
-                <h1 className="text-2xl font-bold text-center text-black dark:text-white mb-6">
-                    Login
-                </h1>
+  return (
+    <Layout>
+      <div className="h-[75dvh] flex items-center justify-center">
+        <div
+          className="w-full max-w-sm p-8 rounded-sm
+        border border-border-neon/30
+        bg-surface
+        shadow-[0_0_30px_var(--glow-green)]"
+        >
+          {/* Header */}
+          <div className="mb-8 text-center">
+            <p className="text-muted text-xs tracking-[0.4em] mb-1">
+              — access terminal —
+            </p>
+            <h1
+              className="text-xl tracking-[0.2em] uppercase text-green
+            drop-shadow-[0_0_8px_var(--glow-green)]"
+            >
+              authenticate
+            </h1>
+          </div>
 
-                {error && (
-                    <p className="text-red-500 text-xl text-center mb-4">
-                        {error}
-                    </p>
-                )}
-
-                <div className="mt-4 flex items-center">
-                    <div className="border-b w-full"></div>
-                    <span className="mx-4 text-sm text-gray-500 dark:text-gray-400">
-                        with
-                    </span>
-                    <div className="border-b w-full"></div>
-                </div>
-
-                <button
-                    className="mt-6 w-full bg-red-500 text-white px-6 py-3 rounded-lg flex justify-center items-center hover:bg-red-600 transition-all dark:bg-red-600 dark:hover:bg-red-500"
-                    onClick={handleGoogleSignIn}
-                >
-                    <img
-                        src="/google-icon.svg"
-                        alt="Google"
-                        className="w-6 h-6 mr-3"
-                    />
-                    Sign in With Google
-                </button>
+          {/* Error */}
+          {/* {error && (
+            <div
+              className="mb-4 px-3 py-2 border border-red-500/50 rounded-sm
+            text-red-400 text-xs tracking-wider text-center
+            bg-red-500/10"
+            >
+              ⚠ {error}
             </div>
-        </Layout>
-    );
+          )} */}
+
+          {/* Divider */}
+          <div className="flex items-center gap-3 mb-6">
+            <div className="flex-1 border-b border-border-neon/20" />
+            <span className="text-muted text-xs tracking-widest">via</span>
+            <div className="flex-1 border-b border-border-neon/20" />
+          </div>
+
+          {/* Google button */}
+          <button
+            // onClick={handleGoogleSignIn}
+            className="w-full flex items-center justify-center gap-3
+            px-6 py-3 rounded-sm
+            border border-border-neon/30
+            bg-transparent text-primary text-sm tracking-widest uppercase
+            hover:border-green hover:text-green
+            hover:shadow-[0_0_16px_var(--glow-green)]
+            transition-all duration-300"
+          >
+            <img src="/google-icon.svg" alt="Google" className="w-5 h-5" />
+            sign in with google
+          </button>
+        </div>
+      </div>
+    </Layout>
+  );
 };
 
 export default Login;

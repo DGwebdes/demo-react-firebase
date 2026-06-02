@@ -15,18 +15,31 @@ const Navbar = () => {
   // };
   return (
     <>
-      <Link to="/" className="text-lg font-bold">
-        <img src="/potion.png" alt="blog-logo-icon" className="w-10" />
+      <Link to="/" className="group flex items-center gap-2">
+        <img
+          src="/potion.png"
+          alt="blog-logo-icon"
+          className="w-9 drop-shadow-[0_0_6px_var(--glow-green)] group-hover:drop-shadow-[0_0_12px_var(--accent-green)] transition-all duration-300"
+        />
+        <span className="text-green text-sm tracking-[0.2em] uppercase hidden sm:block drop-shadow-[0_0_6px_var(--glow-green)]">
+          /root
+        </span>
       </Link>
-      {
-        <div className="flex gap-5 items-center">
-          <Link to="/posts">Blog</Link>
-          {/* <Link className="text-lg text-blue-500" to="/login">
-            <LogIn />
-          </Link> */}
-          <ToggleTheme />
-        </div>
-      }
+
+      <div className="flex gap-6 items-center">
+        <Link
+          to="/posts"
+          className="text-sm tracking-widest uppercase text-dim
+            hover:text-green hover:drop-shadow-[0_0_8px_var(--accent-green)]
+            transition-all duration-200 relative
+            after:content-[''] after:absolute after:left-0 after:-bottom-1
+            after:w-0 after:h-px after:bg-green
+            after:hover:w-full after:transition-all after:duration-300"
+        >
+          chatroom
+        </Link>
+        <ToggleTheme />
+      </div>
     </>
   );
 };

@@ -1,51 +1,29 @@
 import React from "react";
 
-export const MessageRow = ({ ...msg }) => {
+export const MessageRow = ({ color, avatar, user, timestamp, text }) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        gap: 8,
-        padding: "6px 12px",
-        alignItems: "flex-start",
-      }}
-    >
-      {/* Avatar: colored circle with first letter */}
+    <div className="flex gap-3 px-3 py-2 items-start hover:bg-green/5 transition-colors duration-150 group">
       <div
-        style={{
-          width: 28,
-          height: 28,
-          borderRadius: "50%",
-          background: msg.color,
-          flexShrink: 0,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: 12,
-          fontWeight: 700,
-          color: "#0e0e10",
-        }}
+        className="w-7 h-7 rounded-sm shrink-0 flex items-center justify-center text-xs font-bold text-bg font-mono"
+        style={{ background: color, boxShadow: `0 0 8px ${color}66` }}
       >
-        {msg.avatar}
+        {avatar}
       </div>
 
-      {/* Message body */}
-      <div style={{ flex: 1, lineHeight: 1.5 }}>
+      <div className="flex-1 leading-relaxed min-w-0">
         <span
-          style={{
-            color: msg.color,
-            fontWeight: 700,
-            marginRight: 6,
-            fontSize: 13,
-          }}
+          className="font-bold text-xs mr-2 font-mono"
+          style={{ color, textShadow: `0 0 8px ${color}99` }}
         >
-          {msg.user}
+          {user}
         </span>
-        <span style={{ color: "#adadb8", fontSize: 11, marginRight: 8 }}>
-          {msg.timestamp}
+        <span className="text-muted text-[10px] mr-2 font-mono">
+          {timestamp}
         </span>
         <br />
-        <span style={{ color: "#efeff1", fontSize: 13 }}>{msg.text}</span>
+        <span className="text-dim text-xs font-mono wrap-break-word">
+          {text}
+        </span>
       </div>
     </div>
   );
