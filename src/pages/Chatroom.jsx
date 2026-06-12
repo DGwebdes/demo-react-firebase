@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Layout from "./Layout";
 import { DisplayMessage } from "../components/DisplayMessage";
 import { UserInput } from "../components/UserInput";
+import { createInitialMessages } from "../utils/mockData";
 
 function Posts() {
+  const [atBottom, setAtBottom] = useState(true);
+  const [message, setMessage] = useState(() => createInitialMessages(100));
+
   return (
     <Layout>
       <div className="flex flex-col h-[85dvh]">
@@ -24,9 +28,14 @@ function Posts() {
 
           {/* Chat */}
           <section className="flex-1 flex flex-col min-h-0">
-            <DisplayMessage />
+            <DisplayMessage
+              message={message}
+              setMessage={setMessage}
+              atBottom={atBottom}
+              setAtBottom={setAtBottom}
+            />
             <div className="border-t border-border-neon/20">
-              <UserInput />
+              <UserInput setMessage={setMessage} />
             </div>
           </section>
         </div>

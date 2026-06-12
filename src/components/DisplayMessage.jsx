@@ -1,25 +1,31 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { MessageRow } from "./MessageRow";
-import { createInitialMessages, createMessage } from "../utils/mockData";
+// import { getMessages } from "../utils/getChat";
+import { createMessage } from "../utils/mockData";
+import { MAX_MESSAGES } from "../utils/constants";
 
-export const DisplayMessage = () => {
-  const [messages, setMessages] = useState(() => createInitialMessages(10));
-  const [atBottom, setAtBottom] = useState(true);
+export const DisplayMessage = ({
+  message,
+  setMessage,
+  atBottom,
+  setAtBottom,
+}) => {
   const virtuosoRef = useRef(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setMessages((prev) => [...prev, createMessage()]);
-    }, 360000);
-
-    console.log("empty or not");
+      setMessage((prev) => {
+        const next = [...prev, createMessage()];
+        return next.length > MAX_MESSAGES ? next.slice(-MAX_MESSAGES) : next;
+      });
+    }, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [setMessage]);
 
   function scrollToBottom() {
     virtuosoRef.current.scrollToIndex({
-      index: messages.length - 1,
+      index: message.length - 1,
       behavior: "smooth",
     });
   }
@@ -29,25 +35,33 @@ export const DisplayMessage = () => {
       <Virtuoso
         ref={virtuosoRef}
         style={{ height: "100%" }}
-        data={messages}
+        data={message}
         alignToBottom
         followOutput={atBottom ? "auto" : false}
         atBottomStateChange={setAtBottom}
         itemContent={(index, msg) => <MessageRow {...msg} />}
       />
       {!atBottom && (
-        <button
-          onClick={scrollToBottom}
-          className="absolute bottom-3 left-1/2 -translate-x-1/2
+        <>
+          <button
+            onClick={scrollToBottom}
+            className="absolute bottom-3 left-1/2 -translate-x-1/2
       px-4 py-1.5 text-xs tracking-widest uppercase font-mono
       border border-purple/60 text-purple
       bg-bg/90 backdrop-blur-sm rounded-sm
       shadow-[0_0_12px_var(--glow-purple)]
       hover:shadow-[0_0_20px_var(--accent-purple)]
       hover:border-purple transition-all duration-200 whitespace-nowrap"
-        >
-          ↓ new messages
-        </button>
+          >
+            ↓ new messages
+          </button>
+          <p
+            className="absolute bottom-10 left-1/2 -translate-x-1/2
+      text-[10px] tracking-widest text-muted whitespace-nowrap font-mono"
+          >
+            chat is moving fast — some messages may not be shown
+          </p>
+        </>
       )}
     </div>
   );

@@ -1,0 +1,4 @@
+const MAX_MESSAGES = 150;
+const MAX_CHARS = 300;
+
+export { MAX_CHARS, MAX_MESSAGES };

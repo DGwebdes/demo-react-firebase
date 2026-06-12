@@ -1,21 +1,22 @@
-// import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import { useAuth } from "../context/useAuth";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/useAuth";
 import Layout from "./Layout";
 
 const Login = () => {
-  // const navigate = useNavigate();
-  // const { GoogleSignIn } = useAuth();
-  // const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const { GoogleSignIn } = useAuth();
+  const [error, setError] = useState("");
 
-  // const handleGoogleSignIn = async () => {
-  //   try {
-  //     await GoogleSignIn();
-  //     navigate("/");
-  //   } catch (err) {
-  //     setError("Cannot login with google", err.message);
-  //   }
-  // };
+  const handleGoogleSignIn = async () => {
+    try {
+      await GoogleSignIn();
+      navigate("/");
+    } catch (err) {
+      setError("Cannot login with google", err.message);
+      console.log(err);
+    }
+  };
 
   return (
     <Layout>
@@ -40,7 +41,7 @@ const Login = () => {
           </div>
 
           {/* Error */}
-          {/* {error && (
+          {error && (
             <div
               className="mb-4 px-3 py-2 border border-red-500/50 rounded-sm
             text-red-400 text-xs tracking-wider text-center
@@ -48,7 +49,7 @@ const Login = () => {
             >
               ⚠ {error}
             </div>
-          )} */}
+          )}
 
           {/* Divider */}
           <div className="flex items-center gap-3 mb-6">
@@ -59,7 +60,7 @@ const Login = () => {
 
           {/* Google button */}
           <button
-            // onClick={handleGoogleSignIn}
+            onClick={handleGoogleSignIn}
             className="w-full flex items-center justify-center gap-3
             px-6 py-3 rounded-sm
             border border-border-neon/30

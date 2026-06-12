@@ -10,8 +10,8 @@ const Navbar = () => {
   // const navigate = useNavigate();
 
   // const handleLogout = async () => {
-  //     await logout();
-  //     navigate("/");
+  //   await logout();
+  //   navigate("/");
   // };
   return (
     <>
@@ -28,7 +28,7 @@ const Navbar = () => {
 
       <div className="flex gap-6 items-center">
         <Link
-          to="/posts"
+          to="/chatroom"
           className="text-sm tracking-widest uppercase text-dim
             hover:text-green hover:drop-shadow-[0_0_8px_var(--accent-green)]
             transition-all duration-200 relative
