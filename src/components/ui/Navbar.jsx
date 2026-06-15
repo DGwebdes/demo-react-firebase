@@ -1,18 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
-// import { useAuth } from "../../context/useAuth";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/useAuth";
 import ToggleTheme from "../ui/ToggleTheme";
 import { LogOut } from "lucide-react";
 import { LogIn } from "lucide-react";
 
 const Navbar = () => {
-  // const { user, logout } = useAuth();
-  // const navigate = useNavigate();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
-  // const handleLogout = async () => {
-  //   await logout();
-  //   navigate("/");
-  // };
+  const handleLogout = async () => {
+    await logout();
+    navigate("/");
+  };
   return (
     <>
       <Link to="/" className="group flex items-center gap-2">
@@ -38,6 +38,25 @@ const Navbar = () => {
         >
           chatroom
         </Link>
+        {user ? (
+          <button
+            onClick={handleLogout}
+            className="text-sm tracking-widest uppercase text-dim
+              hover:text-green hover:drop-shadow-[0_0_8px_var(--accent-green)]
+              transition-all duration-200"
+          >
+            logout
+          </button>
+        ) : (
+          <Link
+            to="/login"
+            className="text-sm tracking-widest uppercase text-dim
+              hover:text-green hover:drop-shadow-[0_0_8px_var(--accent-green)]
+              transition-all duration-200"
+          >
+            login
+          </Link>
+        )}
         <ToggleTheme />
       </div>
     </>

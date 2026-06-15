@@ -3,6 +3,7 @@ import Chatroom from "./pages/Chatroom";
 import { AuthProvider } from "./context/AuthContext";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import { ProtectRoutes } from "./components/ProtectRoutes";
 
 function App() {
   return (
@@ -10,7 +11,14 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/chatroom" element={<Chatroom />} />
+          <Route
+            path="/chatroom"
+            element={
+              <ProtectRoutes>
+                <Chatroom />
+              </ProtectRoutes>
+            }
+          />
           <Route path="/login" element={<Login />} />
         </Routes>
       </Router>

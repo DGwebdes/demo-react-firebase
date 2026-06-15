@@ -1,23 +1,17 @@
 import React, { useState } from "react";
 import { MAX_CHARS, MAX_MESSAGES } from "../utils/constants";
-import { createMessage } from "../utils/mockData";
 
-export const UserInput = ({ setMessage }) => {
+export const UserInput = ({ sendMessage }) => {
   const [text, setText] = useState("");
 
   const charsLeft = MAX_CHARS - text.length;
   const isOverLimit = charsLeft < 0;
   const isEmpty = text.trim().length === 0;
 
-  function sendMessage() {
+  async function handleSend() {
     if (isEmpty || isOverLimit) return;
 
-    const msg = { ...createMessage(), text: text.trim() };
-
-    setMessage((prev) => {
-      const next = [...prev, msg];
-      return next.length > MAX_MESSAGES ? next.slice(-MAX_MESSAGES) : next;
-    });
+    await sendMessage(text);
 
     setText("");
   }
@@ -25,7 +19,7 @@ export const UserInput = ({ setMessage }) => {
   function handleKeyDown(e) {
     if (e.key === "Enter" && !e.keyShift) {
       e.preventDefault();
-      sendMessage();
+      handleSend();
     }
   }
 
@@ -49,7 +43,7 @@ export const UserInput = ({ setMessage }) => {
 
         {/* Send button */}
         <button
-          onClick={sendMessage}
+          onClick={handleSend}
           disabled={isEmpty || isOverLimit}
           className="px-4 py-2 rounded-sm text-xs tracking-widest uppercase
             border border-border-neon/30 text-green

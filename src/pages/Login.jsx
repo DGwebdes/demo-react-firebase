@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/useAuth";
 import Layout from "./Layout";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { GoogleSignIn } = useAuth();
+  const { GoogleSignIn, user } = useAuth();
   const [error, setError] = useState("");
+
+  if (user) return <Navigate to={"/chatroom"} replace />;
 
   const handleGoogleSignIn = async () => {
     try {

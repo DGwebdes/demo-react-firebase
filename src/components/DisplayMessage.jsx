@@ -1,27 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { Virtuoso } from "react-virtuoso";
 import { MessageRow } from "./MessageRow";
-// import { getMessages } from "../utils/getChat";
-import { createMessage } from "../utils/mockData";
 import { MAX_MESSAGES } from "../utils/constants";
 
-export const DisplayMessage = ({
-  message,
-  setMessage,
-  atBottom,
-  setAtBottom,
-}) => {
+export const DisplayMessage = ({ message, atBottom, setAtBottom }) => {
   const virtuosoRef = useRef(null);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setMessage((prev) => {
-        const next = [...prev, createMessage()];
-        return next.length > MAX_MESSAGES ? next.slice(-MAX_MESSAGES) : next;
-      });
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [setMessage]);
 
   function scrollToBottom() {
     virtuosoRef.current.scrollToIndex({
@@ -57,7 +40,7 @@ export const DisplayMessage = ({
           </button>
           <p
             className="absolute bottom-10 left-1/2 -translate-x-1/2
-      text-[10px] tracking-widest text-muted whitespace-nowrap font-mono"
+      text-[8px] tracking-widest text-muted whitespace-nowrap font-mono"
           >
             chat is moving fast — some messages may not be shown
           </p>

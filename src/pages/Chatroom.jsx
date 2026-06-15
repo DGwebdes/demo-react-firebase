@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import Layout from "./Layout";
 import { DisplayMessage } from "../components/DisplayMessage";
 import { UserInput } from "../components/UserInput";
-import { createInitialMessages } from "../utils/mockData";
+import { useChat } from "../hooks/useChat";
+import { useAuth } from "../context/useAuth";
 
-function Posts() {
+function Chatroom() {
+  const { profile } = useAuth();
+  const { messages, sendMessage } = useChat(profile);
   const [atBottom, setAtBottom] = useState(true);
-  const [message, setMessage] = useState(() => createInitialMessages(100));
 
   return (
     <Layout>
@@ -29,13 +31,12 @@ function Posts() {
           {/* Chat */}
           <section className="flex-1 flex flex-col min-h-0">
             <DisplayMessage
-              message={message}
-              setMessage={setMessage}
+              message={messages}
               atBottom={atBottom}
               setAtBottom={setAtBottom}
             />
             <div className="border-t border-border-neon/20">
-              <UserInput setMessage={setMessage} />
+              <UserInput sendMessage={sendMessage} />
             </div>
           </section>
         </div>
@@ -44,4 +45,4 @@ function Posts() {
   );
 }
 
-export default Posts;
+export default Chatroom;
