@@ -3,20 +3,31 @@ import Chatroom from "./pages/Chatroom";
 import { AuthProvider } from "./context/AuthContext";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-import { ProtectRoutes } from "./components/ProtectRoutes";
 import { NotFound } from "./pages/NotFound";
+import { useAuth } from "./hooks/useAuth";
+import { LoadingScreen } from "./components/LoadingScreen";
+
+function AppContent() {
+  const { loading } = useAuth();
+
+  if (loading) return <LoadingScreen />;
+
+  return (
+    <Router>
+      <Routes>
+        <Route index element={<Home />} />
+        <Route path="/chatroom" element={<Chatroom />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/*" element={<NotFound />} />
+      </Routes>
+    </Router>
+  );
+}
 
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="/chatroom" element={<Chatroom />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/*" element={<NotFound />} />
-        </Routes>
-      </Router>
+      <AppContent />
     </AuthProvider>
   );
 }

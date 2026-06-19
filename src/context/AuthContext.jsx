@@ -92,7 +92,7 @@ export function AuthProvider({ children }) {
         GoogleSignIn,
       }}
     >
-      {!state.loading && children}
+      {children}
     </AuthContext.Provider>
   );
 }
