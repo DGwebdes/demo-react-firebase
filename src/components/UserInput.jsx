@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { MAX_CHARS, MAX_MESSAGES } from "../utils/constants";
 import { Link } from "react-router-dom";
+import { sanitizeMessage } from "../utils/sanitize";
 
 export const UserInput = ({ sendMessage }) => {
   const { user } = useAuth();
@@ -9,9 +10,10 @@ export const UserInput = ({ sendMessage }) => {
   const [error, setError] = useState(null);
   const [sending, setSending] = useState(false);
 
-  const charsLeft = MAX_CHARS - text.length;
+  const clean = sanitizeMessage(text);
+  const charsLeft = MAX_CHARS - clean.length;
   const isOverLimit = charsLeft < 0;
-  const isEmpty = text.trim().length === 0;
+  const isEmpty = clean.trim().length === 0;
 
   async function handleSend() {
     if (isEmpty || isOverLimit || sending) return;
@@ -20,7 +22,7 @@ export const UserInput = ({ sendMessage }) => {
     setError(null);
 
     try {
-      await sendMessage(text);
+      await sendMessage(clean);
 
       setText("");
     } catch (_err) {

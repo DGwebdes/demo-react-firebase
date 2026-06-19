@@ -15,7 +15,7 @@ function Chatroom() {
     <Layout>
       <div className="flex flex-col h-[85dvh]">
         <h1
-          className="text-lg tracking-[0.2em] uppercase mb-3
+          className="hidden md:block text-lg tracking-[0.2em] uppercase mb-3
         text-green drop-shadow-[0_0_8px_var(--glow-green)]"
         >
           // the yapping

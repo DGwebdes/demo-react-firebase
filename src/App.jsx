@@ -4,15 +4,17 @@ import { AuthProvider } from "./context/AuthContext";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import { ProtectRoutes } from "./components/ProtectRoutes";
+import { NotFound } from "./pages/NotFound";
 
 function App() {
   return (
     <AuthProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route index element={<Home />} />
           <Route path="/chatroom" element={<Chatroom />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </Router>
     </AuthProvider>

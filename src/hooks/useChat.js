@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { ref, query, orderByChild, limitToLast, onChildAdded, push, off, update, serverTimestamp, startAt } from 'firebase/database'
 import { database } from "../utils/firebase"
 import { MAX_MESSAGES } from '../utils/constants'
+import { sanitizeMessage } from '../utils/sanitize'
 
 export function useChat(profile) {
     const [messages, setMessages] = useState([]);
@@ -28,6 +29,10 @@ export function useChat(profile) {
     async function sendMessage(text) {
         if (!profile ||  !text.trim()) return
 
+        const clean = sanitizeMessage(text);
+
+        if (!clean.length) return
+
         const newRef = push(ref(database, "messages"));
         
 
@@ -38,7 +43,7 @@ export function useChat(profile) {
                     user: profile.displayName,
                     color: profile.color,
                     avatar: profile.avatar,
-                    text: text.trim(),
+                    text: clean,
                     timestamp: serverTimestamp(),
                 },
                 [`userActivity/${profile.uid}/lastMessage`]: serverTimestamp(),
