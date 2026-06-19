@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { AuthContext } from "./Contexts";
 import { auth, firestore } from "../utils/firebase";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
 import {
   onAuthStateChanged,
   signOut,
@@ -57,7 +57,7 @@ export function AuthProvider({ children }) {
             displayName: user.displayName ?? user.email.split("@")[0],
             color: randomColor(),
             avatar: (user.displayName ?? user.email)[0].toUpperCase(),
-            createdAt: Date.now(),
+            createdAt: serverTimestamp(),
           };
           await setDoc(ref, newProfile);
           setState({ user, profile: newProfile, loading: false });

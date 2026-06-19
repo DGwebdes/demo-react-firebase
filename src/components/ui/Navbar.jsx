@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/useAuth";
+import { useAuth } from "../../hooks/useAuth";
 import ToggleTheme from "../ui/ToggleTheme";
 import { LogOut } from "lucide-react";
 import { LogIn } from "lucide-react";

@@ -4,7 +4,7 @@ import Layout from "./Layout";
 import { DisplayMessage } from "../components/DisplayMessage";
 import { UserInput } from "../components/UserInput";
 import { useChat } from "../hooks/useChat";
-import { useAuth } from "../context/useAuth";
+import { useAuth } from "../hooks/useAuth";
 
 function Chatroom() {
   const { profile } = useAuth();

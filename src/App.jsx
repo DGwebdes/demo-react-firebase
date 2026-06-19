@@ -11,14 +11,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route
-            path="/chatroom"
-            element={
-              <ProtectRoutes>
-                <Chatroom />
-              </ProtectRoutes>
-            }
-          />
+          <Route path="/chatroom" element={<Chatroom />} />
           <Route path="/login" element={<Login />} />
         </Routes>
       </Router>

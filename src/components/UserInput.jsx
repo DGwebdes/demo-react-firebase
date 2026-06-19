@@ -1,19 +1,34 @@
 import React, { useState } from "react";
+import { useAuth } from "../hooks/useAuth";
 import { MAX_CHARS, MAX_MESSAGES } from "../utils/constants";
+import { Link } from "react-router-dom";
 
 export const UserInput = ({ sendMessage }) => {
+  const { user } = useAuth();
   const [text, setText] = useState("");
+  const [error, setError] = useState(null);
+  const [sending, setSending] = useState(false);
 
   const charsLeft = MAX_CHARS - text.length;
   const isOverLimit = charsLeft < 0;
   const isEmpty = text.trim().length === 0;
 
   async function handleSend() {
-    if (isEmpty || isOverLimit) return;
+    if (isEmpty || isOverLimit || sending) return;
 
-    await sendMessage(text);
+    setSending(true);
+    setError(null);
 
-    setText("");
+    try {
+      await sendMessage(text);
+
+      setText("");
+    } catch (_err) {
+      setError("slow down - breathe, lil bro");
+      console.log(_err);
+    } finally {
+      setSending(false);
+    }
   }
 
   function handleKeyDown(e) {
@@ -23,8 +38,28 @@ export const UserInput = ({ sendMessage }) => {
     }
   }
 
+  if (!user)
+    return (
+      <div className="px-3 py-3 flex items-center justify-center gap-2 font-mono">
+        <p className="text-muted text-xs tracking-widest">
+          <Link
+            to="/login"
+            className="text-green hover:drop-shadow-[0_0_8px_var(--accent-green)] transition-all duration-200"
+          >
+            sign in
+          </Link>{" "}
+          to join the conversation
+        </p>
+      </div>
+    );
+
   return (
     <div className="px-3 py-3 flex flex-col gap-1.5 font-mono">
+      {error && (
+        <p className="text-[10px] tracking-widest text-red-400 text-center">
+          ⚠ {error}
+        </p>
+      )}
       <div className="flex items-center gap-2">
         {/* Input */}
         <input
@@ -51,7 +86,7 @@ export const UserInput = ({ sendMessage }) => {
             disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:shadow-none
             transition-all duration-200"
         >
-          send
+          {sending ? "..." : "send"}
         </button>
       </div>
 

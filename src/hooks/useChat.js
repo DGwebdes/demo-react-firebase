@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ref, query, orderByChild, limitToLast, onChildAdded, set, push, off } from 'firebase/database'
+import { ref, query, orderByChild, limitToLast, onChildAdded, push, off, update, serverTimestamp } from 'firebase/database'
 import { database } from "../utils/firebase"
 import { MAX_MESSAGES } from '../utils/constants'
 
@@ -7,8 +7,6 @@ export function useChat(profile) {
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
-        if (!profile) return
-
         const messagesRef = ref(database, "messages");
         const q = query(messagesRef, orderByChild("timestamp"), limitToLast(MAX_MESSAGES))
 
@@ -23,20 +21,33 @@ export function useChat(profile) {
 
         return () => off(q, "child_added", unsubscribe)
 
-    }, [profile])
+    }, [])
 
     async function sendMessage(text) {
         if (!profile ||  !text.trim()) return
-        
+
         const newRef = push(ref(database, "messages"));
-        await set(newRef, {
-            uid: profile.uid,
-            user: profile.displayName,
-            color: profile.color,
-            avatar: profile.avatar,
-            text: text.trim(),
-            timestamp: Date.now(),
-        })
+        
+
+        try {
+            await update(ref(database), {
+                [`messages/${newRef.key}`]: {
+                    uid: profile.uid,
+                    user: profile.displayName,
+                    color: profile.color,
+                    avatar: profile.avatar,
+                    text: text.trim(),
+                    timestamp: serverTimestamp(),
+                },
+                [`userActivity/${profile.uid}/lastMessage`]: serverTimestamp(),
+            })
+
+        } catch (error) {
+            console.error("send error: ", error)
+            throw error
+        }
+
+
     }
 
     return { messages, sendMessage }
