@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ref, query, orderByChild, limitToLast, onChildAdded, push, off, update, serverTimestamp } from 'firebase/database'
+import { ref, query, orderByChild, limitToLast, onChildAdded, push, off, update, serverTimestamp, startAt } from 'firebase/database'
 import { database } from "../utils/firebase"
 import { MAX_MESSAGES } from '../utils/constants'
 
@@ -7,8 +7,10 @@ export function useChat(profile) {
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
+        const window24 = Date.now() - (24 * 60 * 60 * 1000);
+
         const messagesRef = ref(database, "messages");
-        const q = query(messagesRef, orderByChild("timestamp"), limitToLast(MAX_MESSAGES))
+        const q = query(messagesRef, orderByChild("timestamp"), startAt(window24), limitToLast(MAX_MESSAGES))
 
         const unsubscribe = onChildAdded(q, (snap) => {
             const msg = {id: snap.key, ...snap.val() }
