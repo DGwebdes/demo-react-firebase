@@ -9,7 +9,7 @@ const Home = () => {
           className="text-2xl font-bold tracking-[0.15em] uppercase text-green
           drop-shadow-[0_0_10px_var(--glow-green)]"
         >
-          chatroom
+          Yapp
         </h1>
         <p className="text-muted text-xs tracking-[0.3em]">
           — initializing stream —
